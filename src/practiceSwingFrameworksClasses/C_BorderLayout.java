@@ -1,4 +1,4 @@
-package com.swingframework;
+package practiceSwingFrameworksClasses;
 
 import javax.swing.*;
 import java.awt.Color;

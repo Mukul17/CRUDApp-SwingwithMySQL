@@ -1,7 +1,7 @@
-package com.swingframework;
+package swingframework;
 
-import javax.swing.JFrame;
-
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -9,17 +9,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.awt.*;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import practiceSwingFrameworksClasses.CardLayout;
 
 
 public class cardlayout_ extends JFrame {
@@ -46,7 +44,7 @@ public class cardlayout_ extends JFrame {
 		
 		CardLayout cd = new CardLayout();
 		
-		jFrame.setLayout(cd);
+//		jFrame.setLayout(cd);
 		
 		//Customizing JFrame
 			jFrame.setForeground(new Color(0x312509));
@@ -140,7 +138,7 @@ public class cardlayout_ extends JFrame {
 		
 		
 		//Creating Object and Connection
-		Jpanelprac obj = new Jpanelprac();
+		SwingAppWithMySql obj = new SwingAppWithMySql();
 		obj.connection();
 		
 		//Adding Action Listener whenever Button is Clicked
@@ -149,7 +147,8 @@ public class cardlayout_ extends JFrame {
 		
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cd.next(jFrame.getContentPane());
+				  
+				//cd.next(jFrame.getContentPane());
 				
 				
 				if(e.getSource()==Button) {
@@ -181,9 +180,9 @@ public class cardlayout_ extends JFrame {
 				
 				
 				
-				if(e.getSource() ==Button2) cd.next(jFrame.getContentPane());
-				if(e.getSource() ==Button3) cd.next(jFrame.getContentPane());
-			
+//				if(e.getSource() ==Button2) cd.next(jFrame.getContentPane());
+//				if(e.getSource() ==Button3) cd.next(jFrame.getContentPane());
+//			
 				
 			}	
 			
@@ -196,7 +195,7 @@ public class cardlayout_ extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				cd.next(jFrame.getContentPane());
+				//cd.next(jFrame.getContentPane());
 			}
 			
 			
@@ -210,7 +209,7 @@ public class cardlayout_ extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				cd.next(jFrame.getContentPane());
+			//	cd.next(jFrame.getContentPane());
 			}
 			
 			
