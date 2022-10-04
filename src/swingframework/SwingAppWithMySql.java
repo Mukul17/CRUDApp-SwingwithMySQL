@@ -10,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -191,30 +193,32 @@ public class SwingAppWithMySql implements Dialogbox_creation {
 		});
 	}
 
-	static boolean validation(String firstName, String lastName, String age) {
+	static boolean validateRequiredFields(String firstName, String lastName, String age) {
 
 		if (firstNameTextField.getText().equals("") & (lastNameTextField.getText().equals(""))
 				& ageTextField.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "Please Fill the Required Field", "MessageDialog",
-					JOptionPane.ERROR_MESSAGE, null);
+			showErrorMessage("Please Fill the Required Field");
 			System.out.println("Fields are Blank");
 			return true;
 		}
 
 		else if (firstNameTextField.getText().equals("") & (lastNameTextField.getText().equals(""))) {
-			JOptionPane.showMessageDialog(null, "Please Fill the Required Field", "MessageDialog",
-					JOptionPane.ERROR_MESSAGE, null);
+			showErrorMessage("Please Fill the Required Field");
 			return true;
 		}
 
 		else if (lastNameTextField.getText().equals("") & (ageTextField.getText().equals(""))) {
-			JOptionPane.showMessageDialog(null, "Please Fill the Required Field", "MessageDialog",
-					JOptionPane.ERROR_MESSAGE, null);
+			showErrorMessage("Please Fill the Required Field");
 			return true;
 		}
 
 		return false;
 
+	}
+
+	private static void showErrorMessage(String errorMessage) {
+		JOptionPane.showMessageDialog(null, errorMessage, "MessageDialog",
+				JOptionPane.ERROR_MESSAGE, null);
 	}
 
 	private static void updateButtonInsideEditInsertsUpdatedValues(JButton Button3) {
@@ -229,7 +233,7 @@ public class SwingAppWithMySql implements Dialogbox_creation {
 				editFrameLastName = lastNameTextField.getText();
 				editFrameAge = ageTextField.getText();
 
-				isValidate = validation(editFramefirstName, editFrameLastName, editFrameAge);
+				isValidate = validateRequiredFields(editFramefirstName, editFrameLastName, editFrameAge);
 
 				if (isValidate == true) {
 
@@ -321,8 +325,7 @@ public class SwingAppWithMySql implements Dialogbox_creation {
 			}
 
 			private void showMessageDialogForError() {
-				JOptionPane.showMessageDialog(null, "Please Fill the Required Field", "MessageDialog",
-						JOptionPane.ERROR_MESSAGE, null);
+				showErrorMessage("Please Fill the Required Field");
 			}
 
 		});
