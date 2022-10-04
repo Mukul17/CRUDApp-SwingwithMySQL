@@ -1,4 +1,4 @@
-package swingframework;
+package agemanager;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -21,9 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import practiceSwingFrameworksClasses.Dialogbox_creation;
 
-public class SwingAppWithMySql implements Dialogbox_creation {
+public class AgeManager {
 
 	private static String editFramefirstName;
 	private static String editFrameLastName;
@@ -66,7 +65,7 @@ public class SwingAppWithMySql implements Dialogbox_creation {
 
 		configureUpdateButton(updateButton);
 
-		SwingAppWithMySql obj = new SwingAppWithMySql();
+		AgeManager obj = new AgeManager();
 
 		obj.connection();
 
@@ -243,15 +242,19 @@ public class SwingAppWithMySql implements Dialogbox_creation {
 							editFramefirstName, editFrameLastName, editFrameAge, editFramefirstName);
 					try {
 						int updatequery = stmt.executeUpdate(query2);
-						JOptionPane.showMessageDialog(null, "Values Updated", "Values",
-								JOptionPane.INFORMATION_MESSAGE);
-
-						JOptionPane.showMessageDialog(null, updatequery, "", JOptionPane.INFORMATION_MESSAGE);
-
+						
+					//	JOptionPane.showMessageDialog(null, updatequery, "", JOptionPane.INFORMATION_MESSAGE);
+						
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
+						System.err.println("Could Not Update Database"+e1.getMessage());
 						e1.printStackTrace();
+						showErrorMessage("Could Not Update Data Contact Your Administration");
 					}
+					
+					JOptionPane.showMessageDialog(null, "Values Updated", "Values",
+							JOptionPane.INFORMATION_MESSAGE);
+
+					
 
 					firstNameTextField.setText("");
 					lastNameTextField.setText("");
@@ -369,11 +372,11 @@ public class SwingAppWithMySql implements Dialogbox_creation {
 
 	}
 
-	@Override
-	public JDialog createDialog() {
-		JDialog dialog;
-		return dialog = new JDialog(frontPageFrame, "DialogWindow");
-
-	}
+//	@Override
+//	public JDialog createDialog() {
+//		JDialog dialog;
+//		return dialog = new JDialog(frontPageFrame, "DialogWindow");
+//
+//	}
 
 }
