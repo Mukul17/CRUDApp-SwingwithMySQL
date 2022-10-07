@@ -1,4 +1,4 @@
-package test.agemanager;
+package src.test;
 
 import static org.junit.Assert.assertEquals;
 
