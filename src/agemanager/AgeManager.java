@@ -2,25 +2,19 @@ package agemanager;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 
 public class AgeManager {
 
@@ -67,7 +61,7 @@ public class AgeManager {
 
 		AgeManager obj = new AgeManager();
 
-		obj.connection();
+		obj.connectingDatabase();
 
 		addButtonWhichConnectsWithDatabase(addButton);
 
@@ -192,32 +186,44 @@ public class AgeManager {
 		});
 	}
 
-	static boolean validateRequiredFields(String firstName, String lastName, String age) {
+	public static boolean isRequiredFieldsValidated(String firstName, String lastName, String age) {
 
-		if (firstNameTextField.getText().equals("") & (lastNameTextField.getText().equals(""))
-				& ageTextField.getText().equals("")) {
-			showErrorMessage("Please Fill the Required Field");
-			System.out.println("Fields are Blank");
-			return true;
+		if (firstName.equals("")) {
+
+			if (lastName.equals("")) {
+
+				if (age.equals("")) {
+
+					return false;
+				}
+			}
+			return false;
 		}
 
-		else if (firstNameTextField.getText().equals("") & (lastNameTextField.getText().equals(""))) {
-			showErrorMessage("Please Fill the Required Field");
-			return true;
+		else if (age.equals("")) {
+
+			return false;
 		}
 
-		else if (lastNameTextField.getText().equals("") & (ageTextField.getText().equals(""))) {
-			showErrorMessage("Please Fill the Required Field");
-			return true;
+		else if (lastName.equals("")) {
+
+			if (age.equals("")) {
+
+				return false;
+			}
+
+			return false;
 		}
 
-		return false;
+		else {
+
+			return true;
+		}
 
 	}
 
 	private static void showErrorMessage(String errorMessage) {
-		JOptionPane.showMessageDialog(null, errorMessage, "MessageDialog",
-				JOptionPane.ERROR_MESSAGE, null);
+		JOptionPane.showMessageDialog(null, errorMessage, "MessageDialog", JOptionPane.ERROR_MESSAGE, null);
 	}
 
 	private static void updateButtonInsideEditInsertsUpdatedValues(JButton Button3) {
@@ -232,29 +238,25 @@ public class AgeManager {
 				editFrameLastName = lastNameTextField.getText();
 				editFrameAge = ageTextField.getText();
 
-				isValidate = validateRequiredFields(editFramefirstName, editFrameLastName, editFrameAge);
+				isValidate = isRequiredFieldsValidated(editFramefirstName, editFrameLastName, editFrameAge);
 
-				if (isValidate == true) {
+				if (isValidate == false) {
+					showErrorMessage("Please Fill the Empty Fields");
 
 				} else {
 					query2 = String.format(
 							"UPDATE PEOPLE SET first_name= '%s',last_name= '%s',age ='%s' WHERE first_name='%s' ",
 							editFramefirstName, editFrameLastName, editFrameAge, editFramefirstName);
 					try {
-						int updatequery = stmt.executeUpdate(query2);
-						
-					//	JOptionPane.showMessageDialog(null, updatequery, "", JOptionPane.INFORMATION_MESSAGE);
-						
+						stmt.executeUpdate(query2);
+
 					} catch (SQLException e1) {
-						System.err.println("Could Not Update Database"+e1.getMessage());
+						System.err.println("Could Not Update Database" + e1.getMessage());
 						e1.printStackTrace();
 						showErrorMessage("Could Not Update Data Contact Your Administration");
 					}
-					
-					JOptionPane.showMessageDialog(null, "Values Updated", "Values",
-							JOptionPane.INFORMATION_MESSAGE);
 
-					
+					JOptionPane.showMessageDialog(null, "Values Updated", "Values", JOptionPane.INFORMATION_MESSAGE);
 
 					firstNameTextField.setText("");
 					lastNameTextField.setText("");
@@ -274,72 +276,60 @@ public class AgeManager {
 				validationLogic(Button, e);
 			}
 
-			private void validationLogic(JButton Button, ActionEvent e) throws HeadlessException {
+			private void validationLogic(JButton Button, ActionEvent e) {
 
-				if (e.getSource() == Button) {
+				if ((e.getSource() == Button) == false) {
 
-					if (firstNameTextField.getText().equals("") & (lastNameTextField.getText().equals(""))
-							& ageTextField.getText().equals("")) {
-						showMessageDialogForError();
+				}
 
-					}
+				else {
 
-					else if (firstNameTextField.getText().equals("") & (lastNameTextField.getText().equals(""))) {
-						showMessageDialogForError();
-					}
+					if (isRequiredFieldsValidated(firstNameTextField.getText(), lastNameTextField.getText(),
+							ageTextField.getText()))
 
-					else if (lastNameTextField.getText().equals("") & (ageTextField.getText().equals(""))) {
-						showMessageDialogForError();
-					}
+					{
 
-					else {
-						editFramefirstName = firstNameTextField.getText();
-						editFrameLastName = lastNameTextField.getText();
-						editFrameAge = ageTextField.getText();
-
-						query1 = String.format("INSERT INTO PEOPLE VALUES('%s','%s','%s')", editFramefirstName,
-								editFrameLastName, editFrameAge);
+						query1 = String.format("INSERT INTO PEOPLE VALUES('%s','%s','%s')", firstNameTextField.getText(),
+								lastNameTextField.getText(), ageTextField.getText());
 						try {
 							int updatequery = stmt.executeUpdate(query1);
+							JOptionPane.showMessageDialog(null, "Succesfully Inserted "+ updatequery + " values in Database" );
+
 						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
+
 							e1.printStackTrace();
 							e1.getMessage();
 						}
-						System.out.println(editFramefirstName);
-						System.out.println(editFrameLastName);
-						System.out.println(editFrameAge);
 
-						showMessageDialogForInformation();
-
-						// Setting the Text Field to Null again
 						firstNameTextField.setText("");
 						lastNameTextField.setText("");
 						ageTextField.setText("");
 
+						
+
+					}
+
+					else {
+						showErrorMessage("Please Enter Required Field");
 					}
 
 				}
-			}
 
-			private void showMessageDialogForInformation() {
+			};
+
+			void showMessageDialogForInformation() {
 				JOptionPane.showMessageDialog(null, "Values Inserted in Database", "Database Updated",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 
-			private void showMessageDialogForError() {
-				showErrorMessage("Please Fill the Required Field");
-			}
-
 		});
+
 	}
 
-//Establishing DataBase Connection
-	void connection() {
+	void connectingDatabase() {
 		try {
 
 			System.out.println("Inside Function");
-			// Class.forName("com.mysql.cj.jdbc.Driver");
 
 			String url = "jdbc:mysql://localhost:3306/Dog";
 			String username = "root";
@@ -359,24 +349,10 @@ public class AgeManager {
 			stmt = con.createStatement();
 			stmt.executeQuery(q);
 
-			String q12 = "SELECT * FROM PEOPLE ";
-
-			ResultSet set = stmt.executeQuery(q);
-			int index = set.findColumn("age");
-			// System.out.println(updatequery);
-			// System.out.println(set);
-
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 
 	}
-
-//	@Override
-//	public JDialog createDialog() {
-//		JDialog dialog;
-//		return dialog = new JDialog(frontPageFrame, "DialogWindow");
-//
-//	}
 
 }
