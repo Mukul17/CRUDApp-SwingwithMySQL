@@ -22,6 +22,7 @@ public class AgeManager {
 	private static String editFrameLastName;
 	private static String query1, query2;
 	private static String editFrameAge;
+	private DatabaseManager databaseManager;
 
 	static Statement stmt;
 	Connection con;
@@ -31,10 +32,23 @@ public class AgeManager {
 	private static JTextField ageTextField = new JTextField();
 	private static JFrame frontPageFrame;
 
+	static JButton readButton;
+	static JButton addButton;
+	static JButton editButton;
+	static JButton updateButton;
+	
+	
+	public AgeManager(DatabaseManager databaseManager) {
+		this.databaseManager = databaseManager;
+	}
+	
+	
+	
+
 	public static void main(String[] args) {
 
 		frontPageFrame = new JFrame("Database");
-		frontPageFrame.setLayout(null);
+		frontPageFrame.getContentPane().setLayout(null);
 		frontPageFrame.setForeground(new Color(0x312509));
 
 		JLabel firstNameLabel = new JLabel("First Name");
@@ -43,15 +57,17 @@ public class AgeManager {
 
 		settingLabelsBoundsAndFonts(firstNameLabel, lastNameLabel, ageLabel);
 
-		JButton addButton = new JButton();
-		JButton editButton = new JButton();
-		JButton updateButton = new JButton();
+		addButton = new JButton();
+		editButton = new JButton();
+		updateButton = new JButton();
+		readButton = new JButton();
 
 		settingTextFieldsBoundsAndFonts();
 
 		addButton.setBounds(50, 300, 100, 50);
 		editButton.setBounds(180, 300, 100, 50);
 		updateButton.setBounds(90, 300, 200, 50);
+		readButton.setBounds(300, 300, 100, 50);
 
 		configureAddButton(addButton);
 
@@ -59,9 +75,11 @@ public class AgeManager {
 
 		configureUpdateButton(updateButton);
 
-		AgeManager obj = new AgeManager();
+		configureReadButton(readButton);
 
-		obj.connectingDatabase();
+		AgeManager obj = new AgeManager(new DatabaseManager());
+
+		obj.connectingWithSQLDatabaseUsingJDBC();
 
 		addButtonWhichConnectsWithDatabase(addButton);
 
@@ -69,30 +87,34 @@ public class AgeManager {
 
 		updateButtonInsideEditInsertsUpdatedValues(updateButton);
 
-		addingComponentsToFrontPageFrame(firstNameLabel, lastNameLabel, ageLabel, addButton, editButton);
+		addingComponentsToFrontPageFrame(firstNameLabel, lastNameLabel, ageLabel, addButton, editButton, readButton);
 
 		frontPageFrameDefaultProperties();
+
+		readButtonClicked();
 
 	}
 
 	private static void frontPageFrameDefaultProperties() {
 		frontPageFrame.pack();
-		frontPageFrame.setSize(500, 500);
+		frontPageFrame.setSize(400, 280);
 		frontPageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frontPageFrame.setVisible(true);
+		frontPageFrame.setBounds(200, 100, 500, 500);
 		frontPageFrame.getContentPane().setBackground(new Color(0x9CAFB7));
 	}
 
 	private static void addingComponentsToFrontPageFrame(JLabel firstNameLabel, JLabel lastNameLabel, JLabel ageLabel,
-			JButton addButton, JButton editButton) {
-		frontPageFrame.add(firstNameLabel);
-		frontPageFrame.add(lastNameLabel);
-		frontPageFrame.add(ageLabel);
-		frontPageFrame.add(firstNameTextField);
-		frontPageFrame.add(lastNameTextField);
-		frontPageFrame.add(ageTextField);
-		frontPageFrame.add(addButton);
-		frontPageFrame.add(editButton);
+			JButton addButton, JButton editButton, JButton readButton) {
+		frontPageFrame.getContentPane().add(firstNameLabel);
+		frontPageFrame.getContentPane().add(lastNameLabel);
+		frontPageFrame.getContentPane().add(ageLabel);
+		frontPageFrame.getContentPane().add(firstNameTextField);
+		frontPageFrame.getContentPane().add(lastNameTextField);
+		frontPageFrame.getContentPane().add(ageTextField);
+		frontPageFrame.getContentPane().add(addButton);
+		frontPageFrame.getContentPane().add(editButton);
+		frontPageFrame.getContentPane().add(readButton);
 	}
 
 	private static void settingLabelsBoundsAndFonts(JLabel firstNameLabel, JLabel lastNameLabel, JLabel ageLabel) {
@@ -130,8 +152,8 @@ public class AgeManager {
 
 		editButton.setText("Edit");
 		editButton.setFont(new Font("Comic Sans", Font.BOLD, 25));
-		editButton.setBackground(new Color(0x0329F5B));
-		editButton.setForeground(new Color(0x17C3B2));
+		editButton.setBackground(new Color(0x6457A6));
+		editButton.setForeground(new Color(0xFDF0D5));
 		editButton.setBorder(BorderFactory.createEtchedBorder());
 		editButton.setFocusable(false);
 	}
@@ -139,10 +161,19 @@ public class AgeManager {
 	private static void configureAddButton(JButton addButton) {
 		addButton.setText("Add");
 		addButton.setFont(new Font("Comic Sans", Font.BOLD, 25));
-		addButton.setBackground(new Color(0x0D5D56));
-		addButton.setForeground(new Color(0x17C3B2));
+		addButton.setBackground(new Color(0xFF5A5F));
+		addButton.setForeground(new Color(0xFFFFFF));
 		addButton.setBorder(BorderFactory.createEtchedBorder());
 		addButton.setFocusable(false);
+	}
+
+	private static void configureReadButton(JButton readButton) {
+		readButton.setText("Read");
+		readButton.setFont(new Font("Comic Sans", Font.BOLD, 25));
+		readButton.setBackground(new Color(0x247BA0));
+		readButton.setForeground(new Color(0xFFFCFF));
+		readButton.setBorder(BorderFactory.createEtchedBorder());
+		readButton.setFocusable(false);
 	}
 
 	private static void ediButtonClicked(JLabel firstNameLabel, JLabel lastNameLabel, JLabel ageLabel, JButton Button2,
@@ -152,35 +183,23 @@ public class AgeManager {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				JFrame updateScreenFrame = new JFrame("Edit Window");
-				updateScreenFrame.setBounds(100, 300, 50, 100);
-				updateScreenFrame.dispose();
-				updateScreenFrame.setLayout(null);
-
-				addingComponentsToUpdateScreenFrame(firstNameLabel, lastNameLabel, ageLabel, Button3,
-						updateScreenFrame);
-
-				updateScreenFrameDefaultConfiguration(updateScreenFrame);
+				UpdateFrame.main(null);
 
 			}
 
-			private void updateScreenFrameDefaultConfiguration(JFrame updateScreenFrame) {
-				updateScreenFrame.pack();
-				updateScreenFrame.setSize(500, 500);
-				updateScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				updateScreenFrame.getContentPane().setBackground(new Color(0x4F86C6));
-				updateScreenFrame.setVisible(true);
-			}
+		});
+	}
 
-			private void addingComponentsToUpdateScreenFrame(JLabel firstNameLabel, JLabel lastNameLabel,
-					JLabel ageLabel, JButton Button3, JFrame updateScreenFrame) {
-				updateScreenFrame.add(firstNameLabel);
-				updateScreenFrame.add(lastNameLabel);
-				updateScreenFrame.add(ageLabel);
-				updateScreenFrame.add(firstNameTextField);
-				updateScreenFrame.add(lastNameTextField);
-				updateScreenFrame.add(ageTextField);
-				updateScreenFrame.add(Button3);
+	public static void readButtonClicked() {
+
+		readButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				System.out.println("Inside Read button");
+				ReadButtonJFrame.main(null);
+
 			}
 
 		});
@@ -289,11 +308,12 @@ public class AgeManager {
 
 					{
 
-						query1 = String.format("INSERT INTO PEOPLE VALUES('%s','%s','%s')", firstNameTextField.getText(),
-								lastNameTextField.getText(), ageTextField.getText());
+						query1 = String.format("INSERT INTO PEOPLE VALUES('%s','%s','%s')",
+								firstNameTextField.getText(), lastNameTextField.getText(), ageTextField.getText());
 						try {
 							int updatequery = stmt.executeUpdate(query1);
-							JOptionPane.showMessageDialog(null, "Succesfully Inserted "+ updatequery + " values in Database" );
+							JOptionPane.showMessageDialog(null,
+									"Succesfully Inserted " + updatequery + " values in Database");
 
 						} catch (SQLException e1) {
 
@@ -305,8 +325,6 @@ public class AgeManager {
 						lastNameTextField.setText("");
 						ageTextField.setText("");
 
-						
-
 					}
 
 					else {
@@ -317,26 +335,17 @@ public class AgeManager {
 
 			};
 
-			void showMessageDialogForInformation() {
-				JOptionPane.showMessageDialog(null, "Values Inserted in Database", "Database Updated",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-
 		});
 
 	}
 
-	void connectingDatabase() {
+	void connectingWithSQLDatabaseUsingJDBC() {
 		try {
-
-			System.out.println("Inside Function");
 
 			String url = "jdbc:mysql://localhost:3306/Dog";
 			String username = "root";
 			String pass = "Mukul1771@";
 			con = DriverManager.getConnection(url, username, pass);
-			System.out.println(con.getClass().getName());
-			System.out.println("Conenction loaded");
 
 			if (con.isClosed()) {
 				System.out.println("Connection is closed");
