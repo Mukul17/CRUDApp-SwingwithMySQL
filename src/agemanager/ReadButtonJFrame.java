@@ -3,11 +3,9 @@ package agemanager;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -32,9 +30,8 @@ public class ReadButtonJFrame extends JFrame {
 	private String firstName;
 	private String lastName;
 	private String age;
+	private static DatabaseManager databaseManager;
 
-	private Connection connection;
-	private Statement statement;
 	private String readQueryString;
 	private ResultSet resultSet;
 	private ResultSetMetaData resultSetMetaData;
@@ -54,6 +51,8 @@ public class ReadButtonJFrame extends JFrame {
 	}
 
 	public ReadButtonJFrame() throws SQLException {
+
+		databaseManager = new DatabaseManager();
 		setTitle("Database Data");
 		setAlwaysOnTop(true);
 
@@ -80,9 +79,9 @@ public class ReadButtonJFrame extends JFrame {
 
 		readQueryString = "SELECT * FROM PEOPLE";
 
-		jdbcConnection();
+		databaseManager.connectingWithSQLDatabaseUsingJDBC();
 
-		resultSet = statement.executeQuery(readQueryString);
+		resultSet = databaseManager.getStatement().executeQuery(readQueryString);
 
 		defaultTableModel = new DefaultTableModel();
 
@@ -107,21 +106,6 @@ public class ReadButtonJFrame extends JFrame {
 			String[] rowDataStrings = { firstName, lastName, age };
 			defaultTableModel.addRow(rowDataStrings);
 		}
-
-	}
-
-	void jdbcConnection() throws SQLException {
-
-		String url = "jdbc:mysql://localhost:3306/Dog";
-		String username = "root";
-		String pass = "Mukul1771@";
-		String readQueryString = "Select * from people";
-
-		connection = DriverManager.getConnection(url, username, pass);
-		statement = connection.createStatement();
-		statement.executeQuery(readQueryString);
-
-		resultSet = statement.executeQuery(readQueryString);
 
 	}
 
