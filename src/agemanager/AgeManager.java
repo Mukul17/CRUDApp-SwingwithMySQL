@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -22,10 +20,7 @@ public class AgeManager {
 	private static String editFrameLastName;
 	private static String query1, query2;
 	private static String editFrameAge;
-	private DatabaseManager databaseManager;
-
-	static Statement stmt;
-	Connection con;
+	static private DatabaseManager databaseManager;
 
 	private static JTextField firstNameTextField = new JTextField();
 	private static JTextField lastNameTextField = new JTextField();
@@ -36,17 +31,15 @@ public class AgeManager {
 	static JButton addButton;
 	static JButton editButton;
 	static JButton updateButton;
-	
-	
+
 	public AgeManager(DatabaseManager databaseManager) {
-		this.databaseManager = databaseManager;
+		AgeManager.databaseManager = databaseManager;
 	}
-	
-	
-	
 
 	public static void main(String[] args) {
 
+		databaseManager = new DatabaseManager();
+		
 		frontPageFrame = new JFrame("Database");
 		frontPageFrame.getContentPane().setLayout(null);
 		frontPageFrame.setForeground(new Color(0x312509));
@@ -92,6 +85,11 @@ public class AgeManager {
 		frontPageFrameDefaultProperties();
 
 		readButtonClicked();
+
+	}
+
+	private void connectingWithSQLDatabaseUsingJDBC() {
+		databaseManager.connectingWithSQLDatabaseUsingJDBC();
 
 	}
 
@@ -267,7 +265,8 @@ public class AgeManager {
 							"UPDATE PEOPLE SET first_name= '%s',last_name= '%s',age ='%s' WHERE first_name='%s' ",
 							editFramefirstName, editFrameLastName, editFrameAge, editFramefirstName);
 					try {
-						stmt.executeUpdate(query2);
+
+						databaseManager.getStatement().executeUpdate(query2);
 
 					} catch (SQLException e1) {
 						System.err.println("Could Not Update Database" + e1.getMessage());
@@ -311,7 +310,7 @@ public class AgeManager {
 						query1 = String.format("INSERT INTO PEOPLE VALUES('%s','%s','%s')",
 								firstNameTextField.getText(), lastNameTextField.getText(), ageTextField.getText());
 						try {
-							int updatequery = stmt.executeUpdate(query1);
+							int updatequery = databaseManager.getStatement().executeUpdate(query1);
 							JOptionPane.showMessageDialog(null,
 									"Succesfully Inserted " + updatequery + " values in Database");
 
@@ -336,31 +335,6 @@ public class AgeManager {
 			};
 
 		});
-
-	}
-
-	void connectingWithSQLDatabaseUsingJDBC() {
-		try {
-
-			String url = "jdbc:mysql://localhost:3306/Dog";
-			String username = "root";
-			String pass = "Mukul1771@";
-			con = DriverManager.getConnection(url, username, pass);
-
-			if (con.isClosed()) {
-				System.out.println("Connection is closed");
-			} else {
-				System.out.println("Connection is established");
-			}
-
-			String q = "Select * from people";
-
-			stmt = con.createStatement();
-			stmt.executeQuery(q);
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
 
 	}
 
