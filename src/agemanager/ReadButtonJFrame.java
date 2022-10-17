@@ -3,7 +3,6 @@ package agemanager;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -30,9 +29,10 @@ public class ReadButtonJFrame extends JFrame {
 	private String firstName;
 	private String lastName;
 	private String age;
+	private String aadharNumber;
 	private static DatabaseManager databaseManager;
 
-	private String readQueryString;
+	private String selectQuery;
 	private ResultSet resultSet;
 	private ResultSetMetaData resultSetMetaData;
 
@@ -44,7 +44,9 @@ public class ReadButtonJFrame extends JFrame {
 					ReadButtonJFrame frame = new ReadButtonJFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "ERROR with Database...Please Try Again");
 					JOptionPane.showMessageDialog(null, e.getMessage());
+					
 				}
 			}
 		});
@@ -77,11 +79,15 @@ public class ReadButtonJFrame extends JFrame {
 		table.setBorder(new CompoundBorder());
 		table.setBackground(new Color(100, 149, 237));
 
-		readQueryString = "SELECT * FROM PEOPLE";
-
+		selectQuery = "SELECT DISTINCT * FROM PEOPLE";
+		//String deleteQuery = "Delete FROM PEOPLE WHERE first_name ='' ";
+		
+		//databaseManager.getStatement().execute(deleteQuery);
+		
+		
 		databaseManager.connectingWithSQLDatabaseUsingJDBC();
 
-		resultSet = databaseManager.getStatement().executeQuery(readQueryString);
+		resultSet = databaseManager.getStatement().executeQuery(selectQuery);
 
 		defaultTableModel = new DefaultTableModel();
 
@@ -103,7 +109,9 @@ public class ReadButtonJFrame extends JFrame {
 			firstName = resultSet.getString(1);
 			lastName = resultSet.getString(2);
 			age = resultSet.getString(3);
-			String[] rowDataStrings = { firstName, lastName, age };
+			aadharNumber= resultSet.getString(4);
+			
+			String[] rowDataStrings = { firstName, lastName, age , aadharNumber};
 			defaultTableModel.addRow(rowDataStrings);
 		}
 

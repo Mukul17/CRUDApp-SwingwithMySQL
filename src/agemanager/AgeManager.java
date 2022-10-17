@@ -20,11 +20,13 @@ public class AgeManager {
 	private static String editFrameLastName;
 	private static String query1, query2;
 	private static String editFrameAge;
+	private static String editAadharNumber;
 	static private DatabaseManager databaseManager;
 
 	private static JTextField firstNameTextField = new JTextField();
 	private static JTextField lastNameTextField = new JTextField();
 	private static JTextField ageTextField = new JTextField();
+	private static JTextField aadharNumberField = new JTextField();
 	private static JFrame frontPageFrame;
 
 	static JButton readButton;
@@ -34,12 +36,13 @@ public class AgeManager {
 
 	public AgeManager(DatabaseManager databaseManager) {
 		AgeManager.databaseManager = databaseManager;
+
 	}
 
 	public static void main(String[] args) {
 
 		databaseManager = new DatabaseManager();
-		
+
 		frontPageFrame = new JFrame("Database");
 		frontPageFrame.getContentPane().setLayout(null);
 		frontPageFrame.setForeground(new Color(0x312509));
@@ -47,8 +50,9 @@ public class AgeManager {
 		JLabel firstNameLabel = new JLabel("First Name");
 		JLabel lastNameLabel = new JLabel("Last Name");
 		JLabel ageLabel = new JLabel("Age");
+		JLabel aadharNumberLabel = new JLabel("Aadhar Number");
 
-		settingLabelsBoundsAndFonts(firstNameLabel, lastNameLabel, ageLabel);
+		settingLabelsBoundsAndFonts(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel);
 
 		addButton = new JButton();
 		editButton = new JButton();
@@ -80,7 +84,8 @@ public class AgeManager {
 
 		updateButtonInsideEditInsertsUpdatedValues(updateButton);
 
-		addingComponentsToFrontPageFrame(firstNameLabel, lastNameLabel, ageLabel, addButton, editButton, readButton);
+		addingComponentsToFrontPageFrame(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel, addButton,
+				editButton, readButton);
 
 		frontPageFrameDefaultProperties();
 
@@ -95,7 +100,7 @@ public class AgeManager {
 
 	private static void frontPageFrameDefaultProperties() {
 		frontPageFrame.pack();
-		frontPageFrame.setSize(400, 280);
+		frontPageFrame.setSize(136, 269);
 		frontPageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frontPageFrame.setVisible(true);
 		frontPageFrame.setBounds(200, 100, 500, 500);
@@ -103,19 +108,22 @@ public class AgeManager {
 	}
 
 	private static void addingComponentsToFrontPageFrame(JLabel firstNameLabel, JLabel lastNameLabel, JLabel ageLabel,
-			JButton addButton, JButton editButton, JButton readButton) {
+			JLabel aadharNumberLabel, JButton addButton, JButton editButton, JButton readButton) {
 		frontPageFrame.getContentPane().add(firstNameLabel);
 		frontPageFrame.getContentPane().add(lastNameLabel);
 		frontPageFrame.getContentPane().add(ageLabel);
+		frontPageFrame.getContentPane().add(aadharNumberLabel);
 		frontPageFrame.getContentPane().add(firstNameTextField);
 		frontPageFrame.getContentPane().add(lastNameTextField);
 		frontPageFrame.getContentPane().add(ageTextField);
+		frontPageFrame.getContentPane().add(aadharNumberField);
 		frontPageFrame.getContentPane().add(addButton);
 		frontPageFrame.getContentPane().add(editButton);
 		frontPageFrame.getContentPane().add(readButton);
 	}
 
-	private static void settingLabelsBoundsAndFonts(JLabel firstNameLabel, JLabel lastNameLabel, JLabel ageLabel) {
+	private static void settingLabelsBoundsAndFonts(JLabel firstNameLabel, JLabel lastNameLabel, JLabel ageLabel,
+			JLabel aadharNumberLabel) {
 		firstNameLabel.setForeground(new Color(0x0E3B43));
 		firstNameLabel.setBounds(20, 60, 120, 120);
 
@@ -124,6 +132,9 @@ public class AgeManager {
 
 		ageLabel.setForeground(new Color(0x0E3B43));
 		ageLabel.setBounds(20, 150, 70, 120);
+
+		aadharNumberLabel.setForeground(new Color(0x0E3B43));
+		aadharNumberLabel.setBounds(12, 200, 120, 120);
 	}
 
 	private static void settingTextFieldsBoundsAndFonts() {
@@ -135,6 +146,9 @@ public class AgeManager {
 
 		ageTextField.setBounds(100, 200, 50, 30);
 		ageTextField.setFont(new Font("SansSerif", Font.PLAIN, 20));
+
+		aadharNumberField.setBounds(100, 250, 200, 30);
+		aadharNumberField.setFont(new Font("SansSerif", Font.PLAIN, 20));
 	}
 
 	private static void configureUpdateButton(JButton updateButton) {
@@ -203,7 +217,8 @@ public class AgeManager {
 		});
 	}
 
-	public static boolean isRequiredFieldsValidated(String firstName, String lastName, String age) {
+	public static boolean isRequiredFieldsValidated(String firstName, String lastName, String age,
+			String aadharNumber) {
 
 		if (firstName.equals("")) {
 
@@ -211,7 +226,10 @@ public class AgeManager {
 
 				if (age.equals("")) {
 
-					return false;
+					if (aadharNumber.equals("")) {
+						return false;
+					}
+
 				}
 			}
 			return false;
@@ -225,6 +243,16 @@ public class AgeManager {
 		else if (lastName.equals("")) {
 
 			if (age.equals("")) {
+
+				return false;
+			}
+
+			return false;
+		}
+
+		else if (lastName.equals("")) {
+
+			if (aadharNumber.equals("")) {
 
 				return false;
 			}
@@ -254,16 +282,18 @@ public class AgeManager {
 				editFramefirstName = firstNameTextField.getText();
 				editFrameLastName = lastNameTextField.getText();
 				editFrameAge = ageTextField.getText();
+				editAadharNumber = aadharNumberField.getText();
 
-				isValidate = isRequiredFieldsValidated(editFramefirstName, editFrameLastName, editFrameAge);
+				isValidate = isRequiredFieldsValidated(editFramefirstName, editFrameLastName, editFrameAge,
+						editAadharNumber);
 
 				if (isValidate == false) {
 					showErrorMessage("Please Fill the Empty Fields");
 
 				} else {
 					query2 = String.format(
-							"UPDATE PEOPLE SET first_name= '%s',last_name= '%s',age ='%s' WHERE first_name='%s' ",
-							editFramefirstName, editFrameLastName, editFrameAge, editFramefirstName);
+							"UPDATE PEOPLE SET first_name= '%s',last_name= '%s',age ='%s', ADHAR_NUM= '%s' WHERE first_name='%s' ",
+							editFramefirstName, editFrameLastName, editFrameAge, editAadharNumber);
 					try {
 
 						databaseManager.getStatement().executeUpdate(query2);
@@ -279,7 +309,7 @@ public class AgeManager {
 					firstNameTextField.setText("");
 					lastNameTextField.setText("");
 					ageTextField.setText("");
-
+					aadharNumberField.setText("");
 				}
 
 			}
@@ -303,12 +333,13 @@ public class AgeManager {
 				else {
 
 					if (isRequiredFieldsValidated(firstNameTextField.getText(), lastNameTextField.getText(),
-							ageTextField.getText()))
+							ageTextField.getText(), aadharNumberField.getText()))
 
 					{
 
-						query1 = String.format("INSERT INTO PEOPLE VALUES('%s','%s','%s')",
-								firstNameTextField.getText(), lastNameTextField.getText(), ageTextField.getText());
+						query1 = String.format("INSERT INTO PEOPLE VALUES('%s','%s','%s','%s')",
+								firstNameTextField.getText(), lastNameTextField.getText(), ageTextField.getText(),
+								aadharNumberField.getText());
 						try {
 							int updatequery = databaseManager.getStatement().executeUpdate(query1);
 							JOptionPane.showMessageDialog(null,
@@ -317,12 +348,14 @@ public class AgeManager {
 						} catch (SQLException e1) {
 
 							e1.printStackTrace();
-							e1.getMessage();
+							showErrorMessage(e1.getMessage());
+
 						}
 
 						firstNameTextField.setText("");
 						lastNameTextField.setText("");
 						ageTextField.setText("");
+						aadharNumberField.setText("");
 
 					}
 
