@@ -19,9 +19,6 @@ import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 public class ReadButtonJFrame extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
@@ -30,11 +27,11 @@ public class ReadButtonJFrame extends JFrame {
 	private String lastName;
 	private String age;
 	private String aadharNumber;
-	private static DatabaseManager databaseManager;
 
 	private String selectQuery;
 	private ResultSet resultSet;
 	private ResultSetMetaData resultSetMetaData;
+	private static ExecuteQueryHandlerImpl executeQueryHandlerImpl = new ExecuteQueryHandlerImpl();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -46,7 +43,7 @@ public class ReadButtonJFrame extends JFrame {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "ERROR with Database...Please Try Again");
 					JOptionPane.showMessageDialog(null, e.getMessage());
-					
+
 				}
 			}
 		});
@@ -54,7 +51,6 @@ public class ReadButtonJFrame extends JFrame {
 
 	public ReadButtonJFrame() throws SQLException {
 
-		databaseManager = new DatabaseManager();
 		setTitle("Database Data");
 		setAlwaysOnTop(true);
 
@@ -80,14 +76,10 @@ public class ReadButtonJFrame extends JFrame {
 		table.setBackground(new Color(100, 149, 237));
 
 		selectQuery = "SELECT DISTINCT * FROM PEOPLE";
-		//String deleteQuery = "Delete FROM PEOPLE WHERE first_name ='' ";
-		
-		//databaseManager.getStatement().execute(deleteQuery);
-		
-		
-		databaseManager.connectingWithSQLDatabaseUsingJDBC();
 
-		resultSet = databaseManager.getStatement().executeQuery(selectQuery);
+		DatabaseManager.connectingWithSQLDatabaseUsingJDBC();
+
+		resultSet = executeQueryHandlerImpl.executeQueryMethodResultSet(selectQuery);
 
 		defaultTableModel = new DefaultTableModel();
 
@@ -109,9 +101,9 @@ public class ReadButtonJFrame extends JFrame {
 			firstName = resultSet.getString(1);
 			lastName = resultSet.getString(2);
 			age = resultSet.getString(3);
-			aadharNumber= resultSet.getString(4);
-			
-			String[] rowDataStrings = { firstName, lastName, age , aadharNumber};
+			aadharNumber = resultSet.getString(4);
+
+			String[] rowDataStrings = { firstName, lastName, age, aadharNumber };
 			defaultTableModel.addRow(rowDataStrings);
 		}
 

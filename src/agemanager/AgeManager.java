@@ -2,10 +2,6 @@ package agemanager;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,19 +10,21 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class AgeManager {
+public class AgeManager extends ValidationOfFields {
 
-	private static String editFramefirstName;
-	private static String editFrameLastName;
-	private static String query1, query2;
-	private static String editFrameAge;
-	private static String editAadharNumber;
-	static private DatabaseManager databaseManager;
+	static String editFramefirstName;
+	static String editFrameLastName;
+	static String query1;
+	static String query2;
+	static String editFrameAge;
+	static String editAadharNumber;
 
-	private static JTextField firstNameTextField = new JTextField();
-	private static JTextField lastNameTextField = new JTextField();
-	private static JTextField ageTextField = new JTextField();
-	private static JTextField aadharNumberField = new JTextField();
+	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
+
+	static JTextField firstNameTextField = new JTextField();
+	static JTextField lastNameTextField = new JTextField();
+	static JTextField ageTextField = new JTextField();
+	static JTextField aadharNumberField = new JTextField();
 	private static JFrame frontPageFrame;
 
 	static JButton readButton;
@@ -34,14 +32,12 @@ public class AgeManager {
 	static JButton editButton;
 	static JButton updateButton;
 
-	public AgeManager(DatabaseManager databaseManager) {
-		AgeManager.databaseManager = databaseManager;
+	public AgeManager() {
+		super();
 
 	}
 
 	public static void main(String[] args) {
-
-		databaseManager = new DatabaseManager();
 
 		frontPageFrame = new JFrame("Database");
 		frontPageFrame.getContentPane().setLayout(null);
@@ -52,49 +48,42 @@ public class AgeManager {
 		JLabel ageLabel = new JLabel("Age");
 		JLabel aadharNumberLabel = new JLabel("Aadhar Number");
 
-		settingLabelsBoundsAndFonts(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel);
+		AgeManager.settingLabelsBoundsAndFonts(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel);
 
 		addButton = new JButton();
 		editButton = new JButton();
 		updateButton = new JButton();
 		readButton = new JButton();
 
-		settingTextFieldsBoundsAndFonts();
+		AgeManager.settingTextFieldsBoundsAndFonts();
 
 		addButton.setBounds(50, 300, 100, 50);
 		editButton.setBounds(180, 300, 100, 50);
 		updateButton.setBounds(90, 300, 200, 50);
 		readButton.setBounds(300, 300, 100, 50);
 
-		configureAddButton(addButton);
+		AgeManager.configureAddButton(addButton);
 
-		configureEditButton(editButton);
+		AgeManager.configureEditButton(editButton);
 
-		configureUpdateButton(updateButton);
+		AgeManager.configureUpdateButton(updateButton);
 
-		configureReadButton(readButton);
+		AgeManager.configureReadButton(readButton);
 
-		AgeManager obj = new AgeManager(new DatabaseManager());
+		DatabaseManager.connectingWithSQLDatabaseUsingJDBC();
 
-		obj.connectingWithSQLDatabaseUsingJDBC();
+		MainScreenAddButon.addButtonWhichConnectsWithDatabase(addButton);
 
-		addButtonWhichConnectsWithDatabase(addButton);
+		MainScreenEditButton.ediButtonClicked(firstNameLabel, lastNameLabel, ageLabel, editButton, updateButton);
 
-		ediButtonClicked(firstNameLabel, lastNameLabel, ageLabel, editButton, updateButton);
+		MainScreenUpdateButton.updateButtonInsideEditInsertsUpdatedValues(updateButton);
 
-		updateButtonInsideEditInsertsUpdatedValues(updateButton);
+		AgeManager.addingComponentsToFrontPageFrame(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel,
+				addButton, editButton, readButton);
 
-		addingComponentsToFrontPageFrame(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel, addButton,
-				editButton, readButton);
+		AgeManager.frontPageFrameDefaultProperties();
 
-		frontPageFrameDefaultProperties();
-
-		readButtonClicked();
-
-	}
-
-	private void connectingWithSQLDatabaseUsingJDBC() {
-		databaseManager.connectingWithSQLDatabaseUsingJDBC();
+		MainScreenReadButton.readButtonClicked();
 
 	}
 
@@ -188,187 +177,8 @@ public class AgeManager {
 		readButton.setFocusable(false);
 	}
 
-	private static void ediButtonClicked(JLabel firstNameLabel, JLabel lastNameLabel, JLabel ageLabel, JButton Button2,
-			JButton Button3) {
-		Button2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				UpdateFrame.main(null);
-
-			}
-
-		});
-	}
-
-	public static void readButtonClicked() {
-
-		readButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				System.out.println("Inside Read button");
-				ReadButtonJFrame.main(null);
-
-			}
-
-		});
-	}
-
-	public static boolean isRequiredFieldsValidated(String firstName, String lastName, String age,
-			String aadharNumber) {
-
-		if (firstName.equals("")) {
-
-			if (lastName.equals("")) {
-
-				if (age.equals("")) {
-
-					if (aadharNumber.equals("")) {
-						return false;
-					}
-
-				}
-			}
-			return false;
-		}
-
-		else if (age.equals("")) {
-
-			return false;
-		}
-
-		else if (lastName.equals("")) {
-
-			if (age.equals("")) {
-
-				return false;
-			}
-
-			return false;
-		}
-
-		else if (lastName.equals("")) {
-
-			if (aadharNumber.equals("")) {
-
-				return false;
-			}
-
-			return false;
-		}
-
-		else {
-
-			return true;
-		}
-
-	}
-
-	private static void showErrorMessage(String errorMessage) {
+	static void showErrorMessage(String errorMessage) {
 		JOptionPane.showMessageDialog(null, errorMessage, "MessageDialog", JOptionPane.ERROR_MESSAGE, null);
-	}
-
-	private static void updateButtonInsideEditInsertsUpdatedValues(JButton Button3) {
-
-		Button3.addActionListener(new ActionListener() {
-			boolean isValidate;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				editFramefirstName = firstNameTextField.getText();
-				editFrameLastName = lastNameTextField.getText();
-				editFrameAge = ageTextField.getText();
-				editAadharNumber = aadharNumberField.getText();
-
-				isValidate = isRequiredFieldsValidated(editFramefirstName, editFrameLastName, editFrameAge,
-						editAadharNumber);
-
-				if (isValidate == false) {
-					showErrorMessage("Please Fill the Empty Fields");
-
-				} else {
-					query2 = String.format(
-							"UPDATE PEOPLE SET first_name= '%s',last_name= '%s',age ='%s', ADHAR_NUM= '%s' WHERE first_name='%s' ",
-							editFramefirstName, editFrameLastName, editFrameAge, editAadharNumber);
-					try {
-
-						databaseManager.getStatement().executeUpdate(query2);
-
-					} catch (SQLException e1) {
-						System.err.println("Could Not Update Database" + e1.getMessage());
-						e1.printStackTrace();
-						showErrorMessage("Could Not Update Data Contact Your Administration");
-					}
-
-					JOptionPane.showMessageDialog(null, "Values Updated", "Values", JOptionPane.INFORMATION_MESSAGE);
-
-					firstNameTextField.setText("");
-					lastNameTextField.setText("");
-					ageTextField.setText("");
-					aadharNumberField.setText("");
-				}
-
-			}
-		});
-	}
-
-	private static void addButtonWhichConnectsWithDatabase(JButton Button) {
-		Button.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				validationLogic(Button, e);
-			}
-
-			private void validationLogic(JButton Button, ActionEvent e) {
-
-				if ((e.getSource() == Button) == false) {
-
-				}
-
-				else {
-
-					if (isRequiredFieldsValidated(firstNameTextField.getText(), lastNameTextField.getText(),
-							ageTextField.getText(), aadharNumberField.getText()))
-
-					{
-
-						query1 = String.format("INSERT INTO PEOPLE VALUES('%s','%s','%s','%s')",
-								firstNameTextField.getText(), lastNameTextField.getText(), ageTextField.getText(),
-								aadharNumberField.getText());
-						try {
-							int updatequery = databaseManager.getStatement().executeUpdate(query1);
-							JOptionPane.showMessageDialog(null,
-									"Succesfully Inserted " + updatequery + " values in Database");
-
-						} catch (SQLException e1) {
-
-							e1.printStackTrace();
-							showErrorMessage(e1.getMessage());
-
-						}
-
-						firstNameTextField.setText("");
-						lastNameTextField.setText("");
-						ageTextField.setText("");
-						aadharNumberField.setText("");
-
-					}
-
-					else {
-						showErrorMessage("Please Enter Required Field");
-					}
-
-				}
-
-			};
-
-		});
-
 	}
 
 }

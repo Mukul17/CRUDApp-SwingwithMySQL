@@ -23,7 +23,7 @@ public class UpdateFrame extends JFrame {
 	private JPanel contentPane;
 	private static JTextField aadharNumberTextField;
 
-	private static DatabaseManager databaseManager = new DatabaseManager();
+	//private static ExecuteQueryHandlerImpl databaseManager = new DatabaseManager();
 	private static JTextField firstNameTextField;
 	private static JTextField lastNameTextField;
 	private static JTextField ageTextField;
@@ -38,7 +38,10 @@ public class UpdateFrame extends JFrame {
 	static String aadharNumString;
 	static private JButton backToMainMenu;
 	static UpdateFrame frame;
-
+	static Person person;
+	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
+	static ExecuteQueryHandlerImpl handlerImpl = new ExecuteQueryHandlerImpl();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -203,7 +206,7 @@ public class UpdateFrame extends JFrame {
 
 		try {
 
-			ResultSet executeQueryResultSet = databaseManager.executeQueryMethodResultSet(queryString);
+			ResultSet executeQueryResultSet = handlerImpl.executeQueryMethodResultSet(queryString);
 
 			while (executeQueryResultSet.next()) {
 
@@ -265,7 +268,7 @@ public class UpdateFrame extends JFrame {
 						firstNameTextField.getText(), lastNameTextField.getText(), ageTextField.getText(),
 						aadharNumString);
 				try {
-					databaseManager.updateQueriesHandler(queryString);
+					 handler.updateQueriesHandler(queryString);
 				} catch (SQLException e) {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, e.getMessage());
