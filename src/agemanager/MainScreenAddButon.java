@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class MainScreenAddButon {
-	static ValidationOfFields ageManager = new AgeManager();
+	static ValidationOfFields ageManager = new HomeScreen();
 	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
 
 	protected static void addButtonWhichConnectsWithDatabase(JButton Button) {
@@ -27,14 +27,14 @@ public class MainScreenAddButon {
 	
 				else {
 	
-					if (AgeManager.isRequiredFieldsValidated( AgeManager.firstNameTextField.getText(), AgeManager.lastNameTextField.getText(),
-							AgeManager.ageTextField.getText(), AgeManager.aadharNumberField.getText()))
+					if (HomeScreen.isRequiredFieldsValidated( HomeScreen.firstNameTextField.getText(), HomeScreen.lastNameTextField.getText(),
+							HomeScreen.ageTextField.getText(), HomeScreen.aadharNumberField.getText()))
 					{
 	
 						try {
 							String query1 = String.format("INSERT INTO PEOPLE VALUES('%s','%s','%s','%s')",
-									AgeManager.firstNameTextField.getText(), AgeManager.lastNameTextField.getText(), AgeManager.ageTextField.getText(),
-									AgeManager.aadharNumberField.getText());
+									HomeScreen.firstNameTextField.getText(), HomeScreen.lastNameTextField.getText(), HomeScreen.ageTextField.getText(),
+									HomeScreen.aadharNumberField.getText());
 							
 							int updatequery =  handler.updateQueriesHandler(query1);
 							
@@ -44,19 +44,19 @@ public class MainScreenAddButon {
 						} catch (SQLException e1) {
 	
 							e1.printStackTrace();
-							AgeManager.showErrorMessage(e1.getMessage());
+							HomeScreen.showErrorMessage(e1.getMessage());
 	
 						}
 	
-						AgeManager.firstNameTextField.setText("");
-						AgeManager.lastNameTextField.setText("");
-						AgeManager.ageTextField.setText("");
-						AgeManager.aadharNumberField.setText("");
+						HomeScreen.firstNameTextField.setText("");
+						HomeScreen.lastNameTextField.setText("");
+						HomeScreen.ageTextField.setText("");
+						HomeScreen.aadharNumberField.setText("");
 	
 					}
 	
 					else {
-						AgeManager.showErrorMessage("Please Enter Required Field");
+						HomeScreen.showErrorMessage("Please Enter Required Field");
 					}
 	
 				}

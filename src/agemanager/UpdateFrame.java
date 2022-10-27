@@ -172,7 +172,7 @@ public class UpdateFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				AgeManager.main(null);
+				HomeScreen.main(null);
 				frame.dispose();
 			}
 

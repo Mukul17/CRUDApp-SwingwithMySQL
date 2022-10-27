@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 public class MainScreenReadButton extends MainScreenUpdateButton {
 	
-	static ValidationOfFields ageManager =  new AgeManager(); 
+	static ValidationOfFields ageManager =  new HomeScreen(); 
 
 	public static void readButtonClicked() {
 	
-		AgeManager.readButton.addActionListener(new ActionListener() {
+		HomeScreen.readButton.addActionListener(new ActionListener() {
 	
 			@Override
 			public void actionPerformed(ActionEvent e) {

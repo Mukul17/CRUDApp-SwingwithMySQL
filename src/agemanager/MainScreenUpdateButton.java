@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class MainScreenUpdateButton extends MainScreenAddButon {
-	static ValidationOfFields ageManager = new AgeManager();
+	static ValidationOfFields ageManager = new HomeScreen();
 
 	protected static void updateButtonInsideEditInsertsUpdatedValues(JButton Button3) {
 	
@@ -19,16 +19,16 @@ public class MainScreenUpdateButton extends MainScreenAddButon {
 			public void actionPerformed(ActionEvent e) {
 
 				
-				String editFramefirstName = AgeManager.firstNameTextField.getText();
-				String editFrameLastName = AgeManager.lastNameTextField.getText();
-				String editFrameAge = AgeManager.ageTextField.getText();
-				String editAadharNumber = AgeManager.aadharNumberField.getText();
+				String editFramefirstName = HomeScreen.firstNameTextField.getText();
+				String editFrameLastName = HomeScreen.lastNameTextField.getText();
+				String editFrameAge = HomeScreen.ageTextField.getText();
+				String editAadharNumber = HomeScreen.aadharNumberField.getText();
 	
-				isValidate =  AgeManager.isRequiredFieldsValidated(editFramefirstName, editFrameLastName, editFrameAge,
+				isValidate =  HomeScreen.isRequiredFieldsValidated(editFramefirstName, editFrameLastName, editFrameAge,
 						editAadharNumber);
 	
 				if (isValidate == false) {
-					AgeManager.showErrorMessage("Please Fill the Empty Fields");
+					HomeScreen.showErrorMessage("Please Fill the Empty Fields");
 	
 				} else {
 					String query2 = String.format(
@@ -40,15 +40,15 @@ public class MainScreenUpdateButton extends MainScreenAddButon {
 					} catch (SQLException e1) {
 						System.err.println("Could Not Update Database" + e1.getMessage());
 						e1.printStackTrace();
-						AgeManager.showErrorMessage("Could Not Update Data Contact Your Administration");
+						HomeScreen.showErrorMessage("Could Not Update Data Contact Your Administration");
 					}
 	
 					JOptionPane.showMessageDialog(null, "Values Updated", "Values", JOptionPane.INFORMATION_MESSAGE);
 	
-				AgeManager.firstNameTextField.setText("");
-				AgeManager.lastNameTextField.setText("");
-				AgeManager.ageTextField.setText("");
-				AgeManager.aadharNumberField.setText("");
+				HomeScreen.firstNameTextField.setText("");
+				HomeScreen.lastNameTextField.setText("");
+				HomeScreen.ageTextField.setText("");
+				HomeScreen.aadharNumberField.setText("");
 				}
 	
 			}

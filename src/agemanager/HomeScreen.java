@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class AgeManager extends ValidationOfFields {
+public class HomeScreen extends ValidationOfFields {
 
 	static String editFramefirstName;
 	static String editFrameLastName;
@@ -32,7 +32,7 @@ public class AgeManager extends ValidationOfFields {
 	static JButton editButton;
 	static JButton updateButton;
 
-	public AgeManager() {
+	public HomeScreen() {
 		super();
 
 	}
@@ -48,27 +48,27 @@ public class AgeManager extends ValidationOfFields {
 		JLabel ageLabel = new JLabel("Age");
 		JLabel aadharNumberLabel = new JLabel("Aadhar Number");
 
-		AgeManager.settingLabelsBoundsAndFonts(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel);
+		HomeScreen.settingLabelsBoundsAndFonts(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel);
 
 		addButton = new JButton();
 		editButton = new JButton();
 		updateButton = new JButton();
 		readButton = new JButton();
 
-		AgeManager.settingTextFieldsBoundsAndFonts();
+		HomeScreen.settingTextFieldsBoundsAndFonts();
 
 		addButton.setBounds(50, 300, 100, 50);
 		editButton.setBounds(180, 300, 100, 50);
 		updateButton.setBounds(90, 300, 200, 50);
 		readButton.setBounds(300, 300, 100, 50);
 
-		AgeManager.configureAddButton(addButton);
+		HomeScreen.configureAddButton(addButton);
 
-		AgeManager.configureEditButton(editButton);
+		HomeScreen.configureEditButton(editButton);
 
-		AgeManager.configureUpdateButton(updateButton);
+		HomeScreen.configureUpdateButton(updateButton);
 
-		AgeManager.configureReadButton(readButton);
+		HomeScreen.configureReadButton(readButton);
 
 		DatabaseManager.connectingWithSQLDatabaseUsingJDBC();
 
@@ -78,10 +78,10 @@ public class AgeManager extends ValidationOfFields {
 
 		MainScreenUpdateButton.updateButtonInsideEditInsertsUpdatedValues(updateButton);
 
-		AgeManager.addingComponentsToFrontPageFrame(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel,
+		HomeScreen.addingComponentsToFrontPageFrame(firstNameLabel, lastNameLabel, ageLabel, aadharNumberLabel,
 				addButton, editButton, readButton);
 
-		AgeManager.frontPageFrameDefaultProperties();
+		HomeScreen.frontPageFrameDefaultProperties();
 
 		MainScreenReadButton.readButtonClicked();
 
