@@ -15,7 +15,7 @@ public class MainScreenReadButton extends MainScreenUpdateButton {
 			public void actionPerformed(ActionEvent e) {
 	
 				System.out.println("Inside MainScreenReadButton");
-				ReadButtonJFrame.main(null);
+				ReadButtonFrame.main(null);
 	
 			}
 	

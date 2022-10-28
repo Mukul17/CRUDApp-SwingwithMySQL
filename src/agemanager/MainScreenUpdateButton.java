@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class MainScreenUpdateButton extends MainScreenAddButon {
-	static ValidationOfFields ageManager = new HomeScreen();
+	//static ValidationOfFields ageManager = new HomeScreen();
 
 	protected static void updateButtonInsideEditInsertsUpdatedValues(JButton Button3) {
 	

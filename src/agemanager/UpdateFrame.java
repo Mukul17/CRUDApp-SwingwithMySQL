@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -17,31 +16,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class UpdateFrame extends JFrame {
+public class UpdateFrame extends SaveButtonInUpdate {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private static JTextField aadharNumberTextField;
+	GoBackToMainMenuFromUpdate backToMainMenuFromUpdate = new GoBackToMainMenuFromUpdate();
 
-	//private static ExecuteQueryHandlerImpl databaseManager = new DatabaseManager();
-	private static JTextField firstNameTextField;
-	private static JTextField lastNameTextField;
-	private static JTextField ageTextField;
-	private static JLabel aadharNumberLabel;
-	private static JButton aadharNumberSearchButton;
-	private static JLabel firstNameLabel;
-	private static JLabel lastNameLabel;
-	private static JLabel ageLabel;
-	private static JButton cancelButton;
-	static private JButton saveButton;
-	static private boolean isAdharNumberCorrect;
 	static String aadharNumString;
-	static private JButton backToMainMenu;
+	static JButton backToMainMenu;
 	static UpdateFrame frame;
 	static Person person;
-	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
 	static ExecuteQueryHandlerImpl handlerImpl = new ExecuteQueryHandlerImpl();
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -65,6 +51,8 @@ public class UpdateFrame extends JFrame {
 	 * @throws SQLException
 	 */
 	public UpdateFrame() throws SQLException {
+		super();
+		// super();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 619, 455);
 		contentPane = new JPanel();
@@ -155,18 +143,21 @@ public class UpdateFrame extends JFrame {
 		UpdateLabel.setBounds(50, 11, 325, 29);
 		contentPane.add(UpdateLabel);
 
-		cancelButon(cancelButton);
+		CancelButtonInUpdate.cancelButon(cancelButton);
 
-		saveButon(saveButton);
+		SaveButtonInUpdate.saveButon(saveButton);
 
 		backToMainMenu = new JButton("Main Menu");
 		backToMainMenu.setBounds(197, 148, 204, 30);
 		updatePane.add(backToMainMenu);
 
+		// backToMainMenuFromUpdate.backToMenuButton(backToMainMenu);
 		backToMenuButton(backToMainMenu);
+		// backToMainMenuFromUpdate.
 	}
 
-	static void backToMenuButton(JButton button) {
+	static void backToMenuButton(JButton button) throws SQLException {
+		// UpdateFrame frame = new UpdateFrame();
 
 		button.addActionListener(new ActionListener() {
 
@@ -200,84 +191,11 @@ public class UpdateFrame extends JFrame {
 
 	}
 
-	static void createQuery(String aadharNumString) {
-
-		String queryString = String.format("SELECT * FROM PEOPLE WHERE adhar_num ='%s' ", aadharNumString);
-
-		try {
-
-			ResultSet executeQueryResultSet = handlerImpl.executeQueryMethodResultSet(queryString);
-
-			while (executeQueryResultSet.next()) {
-
-				firstNameTextField.setText(executeQueryResultSet.getString("first_name"));
-				lastNameTextField.setText(executeQueryResultSet.getString("last_name"));
-				ageTextField.setText(executeQueryResultSet.getString("age"));
-				textFieldActionListener(firstNameTextField);
-				textFieldActionListener(lastNameTextField);
-				textFieldActionListener(ageTextField);
-				isAdharNumberCorrect = true;
-			}
-
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
-			e.printStackTrace();
-		}
-
-	}
-
-	static void cancelButon(JButton button) {
-
-		button.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				firstNameTextField.setVisible(false);
-				firstNameLabel.setVisible(false);
-				lastNameLabel.setVisible(false);
-				lastNameTextField.setVisible(false);
-				ageTextField.setVisible(false);
-				ageLabel.setVisible(false);
-				aadharNumberLabel.setVisible(true);
-				aadharNumberTextField.setVisible(true);
-				aadharNumberSearchButton.setVisible(true);
-				button.setVisible(false);
-				firstNameTextField.setText("");
-				lastNameTextField.setText("");
-				ageTextField.setText("");
-				backToMainMenu.setVisible(true);
-			}
-
-		});
-	}
-
-	static void saveButon(JButton jButton) throws SQLException {
-
-		jButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-				System.out.println(firstNameTextField.getText());
-				System.out.println(lastNameTextField.getText());
-				System.out.println(ageTextField.getText());
-				System.out.println(aadharNumString);
-				String queryString = String.format(
-
-						"UPDATE PEOPLE SET first_name ='%s', last_name ='%s', age ='%s' WHERE adhar_num ='%s' ",
-						firstNameTextField.getText(), lastNameTextField.getText(), ageTextField.getText(),
-						aadharNumString);
-				try {
-					 handler.updateQueriesHandler(queryString);
-				} catch (SQLException e) {
-					e.printStackTrace();
-					JOptionPane.showMessageDialog(null, e.getMessage());
-				}
-			}
-
-		});
-
-	}
+//	public void createQuery(String aadharNumString) {
+//
+//		
+//
+//	}
 
 	static void buttonActionEvent(JButton button) throws SQLException {
 
@@ -294,8 +212,8 @@ public class UpdateFrame extends JFrame {
 				}
 
 				else {
-
-					UpdateFrame.createQuery(aadharNumString);
+					CreateQueryForUpdateFrame createQueryForUpdateFrame = new CreateQueryForUpdateFrame();
+					boolean isAdharNumberCorrect = createQueryForUpdateFrame.createQuery(aadharNumString);
 
 					if (isAdharNumberCorrect == true) {
 						backToMainMenu.setVisible(false);
