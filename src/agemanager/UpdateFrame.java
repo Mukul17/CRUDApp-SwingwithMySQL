@@ -11,19 +11,16 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class UpdateFrame extends SaveButtonInUpdate {
+public class UpdateFrame extends SearchButtonInUpdate {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	GoBackToMainMenuFromUpdate backToMainMenuFromUpdate = new GoBackToMainMenuFromUpdate();
 
-	static String aadharNumString;
-	static JButton backToMainMenu;
 	static UpdateFrame frame;
 	static Person person;
 	static ExecuteQueryHandlerImpl handlerImpl = new ExecuteQueryHandlerImpl();
@@ -89,7 +86,7 @@ public class UpdateFrame extends SaveButtonInUpdate {
 		aadharNumberSearchButton.setBounds(197, 102, 204, 30);
 		updatePane.add(aadharNumberSearchButton);
 
-		buttonActionEvent(aadharNumberSearchButton);
+		
 
 		firstNameTextField = new JTextField();
 		firstNameTextField.setBounds(185, 88, 121, 30);
@@ -146,6 +143,7 @@ public class UpdateFrame extends SaveButtonInUpdate {
 		CancelButtonInUpdate.cancelButon(cancelButton);
 
 		SaveButtonInUpdate.saveButon(saveButton);
+		SearchButtonInUpdate.searchButton(aadharNumberSearchButton);
 
 		backToMainMenu = new JButton("Main Menu");
 		backToMainMenu.setBounds(197, 148, 204, 30);
@@ -171,7 +169,7 @@ public class UpdateFrame extends SaveButtonInUpdate {
 
 	}
 
-	static void textFieldActionListener(JTextField textField) {
+	static void checkingIfTextFieldsAreClicked(JTextField textField) {
 
 		textField.addFocusListener(new FocusListener() {
 
@@ -189,60 +187,6 @@ public class UpdateFrame extends SaveButtonInUpdate {
 
 		});
 
-	}
-
-//	public void createQuery(String aadharNumString) {
-//
-//		
-//
-//	}
-
-	static void buttonActionEvent(JButton button) throws SQLException {
-
-		button.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				aadharNumString = aadharNumberTextField.getText();
-				System.out.println(aadharNumString);
-
-				if (aadharNumString.equals("")) {
-					JOptionPane.showMessageDialog(null, "Please Enter Aadhar Number");
-				}
-
-				else {
-					CreateQueryForUpdateFrame createQueryForUpdateFrame = new CreateQueryForUpdateFrame();
-					boolean isAdharNumberCorrect = createQueryForUpdateFrame.createQuery(aadharNumString);
-
-					if (isAdharNumberCorrect == true) {
-						backToMainMenu.setVisible(false);
-						aadharNumberTextField.setVisible(false);
-						aadharNumberLabel.setVisible(false);
-						aadharNumberSearchButton.setVisible(false);
-
-						cancelButton.setVisible(true);
-
-						saveButton.setEnabled(false);
-						firstNameTextField.setVisible(true);
-						lastNameTextField.setVisible(true);
-						ageTextField.setVisible(true);
-						firstNameLabel.setVisible(true);
-						lastNameLabel.setVisible(true);
-						ageLabel.setVisible(true);
-
-						aadharNumberTextField.setText("");
-					}
-
-					else {
-						JOptionPane.showMessageDialog(null, "Aadhar Number did not Match our Records");
-					}
-
-				}
-
-			}
-
-		});
 	}
 
 }
