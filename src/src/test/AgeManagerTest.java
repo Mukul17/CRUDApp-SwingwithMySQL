@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import agemanager.HomeScreen;
+import startingpoint.HomeScreen;
 
 class AgeManagerTest {
 

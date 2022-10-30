@@ -1,4 +1,4 @@
-package agemanager;
+package crudmanager;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,6 +12,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+
+import databasefacade.DatabaseConnector;
 
 public class ReadFromDataBase implements IReadDatabase {
 	public JPanel contentPane;
@@ -43,7 +45,7 @@ public class ReadFromDataBase implements IReadDatabase {
 
 			selectQuery = "SELECT DISTINCT * FROM PEOPLE";
 
-			DatabaseManager.connectingWithSQLDatabaseUsingJDBC();
+			DatabaseConnector.connectingWithSQLDatabaseUsingJDBC();
 
 			
 			resultSet = executeQueryHandlerImpl.executeQueryMethodResultSet(selectQuery);

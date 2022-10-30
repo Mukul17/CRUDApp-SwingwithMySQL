@@ -1,4 +1,4 @@
-package agemanager;
+package crudmanager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

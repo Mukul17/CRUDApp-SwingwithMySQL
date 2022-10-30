@@ -1,4 +1,4 @@
-package agemanager;
+package crudmanager;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;

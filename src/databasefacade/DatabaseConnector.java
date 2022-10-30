@@ -1,11 +1,10 @@
-package agemanager;
+package databasefacade;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 import java.sql.Statement;
 
-public class DatabaseManager {
+public class DatabaseConnector {
 
 	private static Statement statement;
 	private static Connection connection;

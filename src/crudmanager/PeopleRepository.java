@@ -1,4 +1,4 @@
-package agemanager;
+package crudmanager;
 
 public class PeopleRepository {
 

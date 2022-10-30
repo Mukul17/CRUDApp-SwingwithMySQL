@@ -1,4 +1,4 @@
-package agemanager;
+package startingpoint;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,6 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import crudmanager.UpdateQueryHandlerImpl;
+import crudmanager.ValidationOfFields;
+import databasefacade.DatabaseConnector;
+import ui.MainScreenAddButon;
+import ui.MainScreenEditButton;
+import ui.MainScreenReadButton;
+import ui.MainScreenUpdateButton;
 
 public class HomeScreen extends ValidationOfFields {
 
@@ -21,13 +29,13 @@ public class HomeScreen extends ValidationOfFields {
 
 	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
 
-	static JTextField firstNameTextField = new JTextField();
-	static JTextField lastNameTextField = new JTextField();
-	static JTextField ageTextField = new JTextField();
-	static JTextField aadharNumberField = new JTextField();
+	public static JTextField firstNameTextField = new JTextField();
+	public static JTextField lastNameTextField = new JTextField();
+	public static JTextField ageTextField = new JTextField();
+	public static JTextField aadharNumberField = new JTextField();
 	private static JFrame frontPageFrame;
 
-	static JButton readButton;
+	public static JButton readButton;
 	static JButton addButton;
 	static JButton editButton;
 	static JButton updateButton;
@@ -70,7 +78,7 @@ public class HomeScreen extends ValidationOfFields {
 
 		HomeScreen.configureReadButton(readButton);
 
-		DatabaseManager.connectingWithSQLDatabaseUsingJDBC();
+		DatabaseConnector.connectingWithSQLDatabaseUsingJDBC();
 
 		MainScreenAddButon.addButtonWhichConnectsWithDatabase(addButton);
 
@@ -177,7 +185,7 @@ public class HomeScreen extends ValidationOfFields {
 		readButton.setFocusable(false);
 	}
 
-	static void showErrorMessage(String errorMessage) {
+	public static void showErrorMessage(String errorMessage) {
 		JOptionPane.showMessageDialog(null, errorMessage, "MessageDialog", JOptionPane.ERROR_MESSAGE, null);
 	}
 

@@ -1,4 +1,4 @@
-package agemanager;
+package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +6,10 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+
+import crudmanager.UpdateQueryHandlerImpl;
+import crudmanager.ValidationOfFields;
+import startingpoint.HomeScreen;
 
 public class MainScreenAddButon {
 	static ValidationOfFields ageManager = new HomeScreen();
