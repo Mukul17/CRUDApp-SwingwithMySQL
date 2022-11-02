@@ -9,7 +9,6 @@ public class StartingPoint extends HomeScreen {
 		DatabaseConnector.connectingWithSQLDatabaseUsingJDBC();
 		HomeScreen.main(args);
 
-		
 	}
 
 }

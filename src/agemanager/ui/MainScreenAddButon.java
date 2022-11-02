@@ -11,7 +11,6 @@ import agemanager.domain.PeopleRepository;
 import agemanager.domain.ValidationOfFields;
 
 public class MainScreenAddButon {
-	static ValidationOfFields ageManager = new HomeScreen();
 
 	protected static void addButtonWhichConnectsWithDatabase(JButton Button) {
 		Button.addActionListener(new ActionListener() {
@@ -38,7 +37,7 @@ public class MainScreenAddButon {
 							instance.sendQuery();
 
 							JOptionPane.showMessageDialog(null,
-									"Succesfully Inserted " + instance.updateQuery() + " values in Database");
+									"Succesfully Inserted " + instance.updateResultOfQuery() + " values in Database");
 
 						} catch (SQLException e1) {
 

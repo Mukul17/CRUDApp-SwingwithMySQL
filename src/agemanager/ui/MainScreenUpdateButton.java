@@ -7,12 +7,15 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import agemanager.domain.PeopleRepository;
 import agemanager.domain.UpdateQueryHandlerImpl;
 import agemanager.domain.ValidationOfFields;
 
 public class MainScreenUpdateButton extends MainScreenAddButon {
 	// static ValidationOfFields ageManager = new HomeScreen();
 	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
+	public static String editFramefirstName, editFrameLastName, editFrameAge, editAadharNumber;
+	static PeopleRepository instance = PeopleRepository.getInstance();
 
 	protected static void updateButtonInsideEditInsertsUpdatedValues(JButton Button3) {
 
@@ -22,23 +25,22 @@ public class MainScreenUpdateButton extends MainScreenAddButon {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				String editFramefirstName = HomeScreen.firstNameTextField.getText();
-				String editFrameLastName = HomeScreen.lastNameTextField.getText();
-				String editFrameAge = HomeScreen.ageTextField.getText();
-				String editAadharNumber = HomeScreen.aadharNumberField.getText();
+				editFramefirstName = HomeScreen.firstNameTextField.getText();
+				editFrameLastName = HomeScreen.lastNameTextField.getText();
+				editFrameAge = HomeScreen.ageTextField.getText();
+				editAadharNumber = HomeScreen.aadharNumberField.getText();
 
-				isValidate = ValidationOfFields.isRequiredFieldsValidated(editFramefirstName, editFrameLastName, editFrameAge,
-						editAadharNumber);
+				isValidate = ValidationOfFields.isRequiredFieldsValidated(editFramefirstName, editFrameLastName,
+						editFrameAge, editAadharNumber);
 
 				if (isValidate == false) {
 					HomeScreen.showErrorMessage("Please Fill the Empty Fields");
 
 				} else {
-					String query2 = String.format(
-							"UPDATE PEOPLE SET first_name= '%s',last_name= '%s',age ='%s', ADHAR_NUM= '%s' WHERE first_name='%s' ",
-							editFramefirstName, editFrameLastName, editFrameAge, editAadharNumber);
+
 					try {
-						handler.updateQueriesHandler(query2);
+						String updateQuery = instance.updateQuery();
+						handler.updateQueriesHandler(updateQuery);
 
 					} catch (SQLException e1) {
 						System.err.println("Could Not Update Database" + e1.getMessage());
