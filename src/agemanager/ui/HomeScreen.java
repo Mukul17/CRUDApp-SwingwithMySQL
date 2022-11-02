@@ -1,4 +1,4 @@
-package crudmanager;
+package agemanager.ui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,11 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import databasefacade.DatabaseConnector;
-import ui.MainScreenAddButon;
-import ui.MainScreenEditButton;
-import ui.MainScreenReadButton;
-import ui.MainScreenUpdateButton;
+
+import agemanager.domain.UpdateQueryHandlerImpl;
+import agemanager.domain.ValidationOfFields;
 
 public class HomeScreen extends ValidationOfFields {
 
@@ -76,7 +74,7 @@ public class HomeScreen extends ValidationOfFields {
 
 		HomeScreen.configureReadButton(readButton);
 
-		DatabaseConnector.connectingWithSQLDatabaseUsingJDBC();
+		
 
 		MainScreenAddButon.addButtonWhichConnectsWithDatabase(addButton);
 

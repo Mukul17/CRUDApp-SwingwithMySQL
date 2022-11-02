@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import crudmanager.HomeScreen;
+import agemanager.ui.HomeScreen;
 
 class AgeManagerTest {
 

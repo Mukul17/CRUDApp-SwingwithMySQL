@@ -1,4 +1,4 @@
-package ui;
+package agemanager.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import crudmanager.HomeScreen;
+import agemanager.domain.UpdateQueryHandlerImpl;
+import agemanager.domain.ValidationOfFields;
 
 public class MainScreenUpdateButton extends MainScreenAddButon {
 	// static ValidationOfFields ageManager = new HomeScreen();
+	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
 
 	protected static void updateButtonInsideEditInsertsUpdatedValues(JButton Button3) {
 
@@ -25,7 +27,7 @@ public class MainScreenUpdateButton extends MainScreenAddButon {
 				String editFrameAge = HomeScreen.ageTextField.getText();
 				String editAadharNumber = HomeScreen.aadharNumberField.getText();
 
-				isValidate = HomeScreen.isRequiredFieldsValidated(editFramefirstName, editFrameLastName, editFrameAge,
+				isValidate = ValidationOfFields.isRequiredFieldsValidated(editFramefirstName, editFrameLastName, editFrameAge,
 						editAadharNumber);
 
 				if (isValidate == false) {

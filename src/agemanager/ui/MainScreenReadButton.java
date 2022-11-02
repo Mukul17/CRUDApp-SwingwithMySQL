@@ -1,11 +1,10 @@
-package ui;
+package agemanager.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import crudmanager.HomeScreen;
-import crudmanager.ReadButtonFrame;
-import crudmanager.ValidationOfFields;
+import agemanager.domain.ReadButtonFrame;
+import agemanager.domain.ValidationOfFields;
 
 public class MainScreenReadButton extends MainScreenUpdateButton {
 	

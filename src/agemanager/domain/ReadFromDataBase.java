@@ -1,4 +1,4 @@
-package crudmanager;
+package agemanager.domain;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
-import databasefacade.DatabaseConnector;
+import agemanager.database.DatabaseConnector;
 
 public class ReadFromDataBase implements IReadDatabase {
 	public JPanel contentPane;

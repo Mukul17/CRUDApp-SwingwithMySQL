@@ -1,4 +1,4 @@
-package crudmanager;
+package agemanager.domain;
 
 public class Person {
 

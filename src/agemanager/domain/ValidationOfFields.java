@@ -1,6 +1,6 @@
-package crudmanager;
+package agemanager.domain;
 
-import ui.MainScreenEditButton;
+import agemanager.ui.MainScreenEditButton;
 
 public class ValidationOfFields extends MainScreenEditButton {
 
