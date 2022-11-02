@@ -15,8 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import startingpoint.HomeScreen;
-
 public class UpdateFrame extends SearchButtonInUpdate {
 
 	private static final long serialVersionUID = 1L;

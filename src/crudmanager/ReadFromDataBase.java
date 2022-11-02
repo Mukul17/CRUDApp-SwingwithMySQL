@@ -32,7 +32,9 @@ public class ReadFromDataBase implements IReadDatabase {
 
 	@Override
 	public void readingDatabase(JScrollPane scrollPane) throws SQLException  {
-		ExecuteQueryHandlerImpl executeQueryHandlerImpl = new ExecuteQueryHandlerImpl() ;
+		 
+		IExecuteQuery executeQueryHandlerImpl = new ExecuteQueryHandlerImpl() ;
+		
 			table = new JTable();
 			scrollPane.setViewportView(table);
 			table.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));

@@ -1,4 +1,4 @@
-package startingpoint;
+package crudmanager;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,8 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import crudmanager.UpdateQueryHandlerImpl;
-import crudmanager.ValidationOfFields;
 import databasefacade.DatabaseConnector;
 import ui.MainScreenAddButon;
 import ui.MainScreenEditButton;

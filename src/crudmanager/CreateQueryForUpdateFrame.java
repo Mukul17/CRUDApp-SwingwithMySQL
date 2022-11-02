@@ -10,12 +10,13 @@ public class CreateQueryForUpdateFrame implements ICreateQueryForUpdateFrame {
 	@Override
 	public boolean createQuery(String aadharNumber) {
 		boolean isAdharNumberCorrect = false;
-		
-		String queryString = String.format("SELECT * FROM PEOPLE WHERE adhar_num ='%s' ", SearchButtonInUpdate.aadharNumString);
+
+		String queryString = String.format("SELECT * FROM PEOPLE WHERE adhar_num ='%s' ",
+				SearchButtonInUpdate.aadharNumString);
 
 		try {
 
-			ExecuteQueryHandlerImpl handlerImpl = new ExecuteQueryHandlerImpl();
+			IExecuteQuery handlerImpl = new ExecuteQueryHandlerImpl();
 			ResultSet executeQueryResultSet = handlerImpl.executeQueryMethodResultSet(queryString);
 
 			while (executeQueryResultSet.next()) {
@@ -23,10 +24,10 @@ public class CreateQueryForUpdateFrame implements ICreateQueryForUpdateFrame {
 				CancelButtonInUpdate.firstNameTextField.setText(executeQueryResultSet.getString("first_name"));
 				CancelButtonInUpdate.lastNameTextField.setText(executeQueryResultSet.getString("last_name"));
 				CancelButtonInUpdate.ageTextField.setText(executeQueryResultSet.getString("age"));
-			UpdateFrame.checkingIfTextFieldsAreClicked( CancelButtonInUpdate.firstNameTextField);
-			UpdateFrame.checkingIfTextFieldsAreClicked(CancelButtonInUpdate.lastNameTextField);
-			UpdateFrame.checkingIfTextFieldsAreClicked(CancelButtonInUpdate.ageTextField);
-			 isAdharNumberCorrect = true;
+				UpdateFrame.checkingIfTextFieldsAreClicked(CancelButtonInUpdate.firstNameTextField);
+				UpdateFrame.checkingIfTextFieldsAreClicked(CancelButtonInUpdate.lastNameTextField);
+				UpdateFrame.checkingIfTextFieldsAreClicked(CancelButtonInUpdate.ageTextField);
+				isAdharNumberCorrect = true;
 			}
 
 		} catch (SQLException e) {

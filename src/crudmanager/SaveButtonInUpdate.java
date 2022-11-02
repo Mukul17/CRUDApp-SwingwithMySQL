@@ -16,7 +16,7 @@ public class SaveButtonInUpdate extends CancelButtonInUpdate {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected static JButton saveButton;
-	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
+	static IQueryHandler handler = new UpdateQueryHandlerImpl();
 
 	protected static void saveButon(JButton jButton) throws SQLException {
 	
