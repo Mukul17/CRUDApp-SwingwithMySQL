@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import agemanager.database.ReadFromDataBase;
+
 public class ReadButtonFrame extends JFrame  {
 
 	private static final long serialVersionUID = 1L;

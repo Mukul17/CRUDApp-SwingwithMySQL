@@ -7,12 +7,11 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import agemanager.database.UpdateQueryHandlerImpl;
 import agemanager.domain.PeopleRepository;
-import agemanager.domain.UpdateQueryHandlerImpl;
 import agemanager.domain.ValidationOfFields;
 
 public class MainScreenUpdateButton extends MainScreenAddButon {
-	// static ValidationOfFields ageManager = new HomeScreen();
 	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
 	public static String editFramefirstName, editFrameLastName, editFrameAge, editAadharNumber;
 	static PeopleRepository instance = PeopleRepository.getInstance();
@@ -40,7 +39,7 @@ public class MainScreenUpdateButton extends MainScreenAddButon {
 
 					try {
 						String updateQuery = instance.updateQuery();
-						handler.updateQueriesHandler(updateQuery);
+						handler.updateQueriesConnectionHandler(updateQuery);
 
 					} catch (SQLException e1) {
 						System.err.println("Could Not Update Database" + e1.getMessage());

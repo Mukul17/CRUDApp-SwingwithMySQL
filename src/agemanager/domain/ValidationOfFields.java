@@ -6,56 +6,35 @@ public class ValidationOfFields extends MainScreenEditButton {
 
 	public static boolean isRequiredFieldsValidated(String firstName, String lastName, String age,
 			String aadharNumber) {
+		boolean flag = false;
 
 		if (firstName.isEmpty()) {
 
-			if (lastName.isEmpty()) {
+			flag = false;
+			return flag;
+		}
 
-				if (age.isEmpty()) {
+		else if (lastName.isEmpty()) {
 
-					if (aadharNumber.isEmpty()) {
-						return false;
-					}
-
-				}
-			}
-			return false;
+			flag = false;
+			return flag;
 		}
 
 		else if (age.isEmpty()) {
-			if (lastName.isEmpty()) {
-				return false;
-			}
 
-			return false;
+			flag = false;
+			return flag;
 		}
 
-		else if (lastName.isEmpty()) {
-
-			if (age.isEmpty()) {
-
-				return false;
-			}
-
-			return false;
-		}
-
-		else if (lastName.isEmpty()) {
-
-			if (aadharNumber.isEmpty()) {
-
-				return false;
-			}
-			if (age.isEmpty()) {
-				return false;
-			}
-
-			return false;
+		else if (aadharNumber.isEmpty()) {
+			flag = false;
+			return flag;
 		}
 
 		else {
+			flag = true;
 
-			return true;
+			return flag;
 		}
 
 	}

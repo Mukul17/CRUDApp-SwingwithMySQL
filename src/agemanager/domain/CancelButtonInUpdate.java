@@ -17,9 +17,9 @@ public class CancelButtonInUpdate extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected static JTextField aadharNumberTextField;
-	protected static JTextField firstNameTextField;
-	protected static JTextField lastNameTextField;
-	protected static JTextField ageTextField;
+	public static JTextField firstNameTextField;
+	public static JTextField lastNameTextField;
+	public static JTextField ageTextField;
 	protected static JLabel aadharNumberLabel;
 	protected static JButton aadharNumberSearchButton;
 	protected static JLabel firstNameLabel;

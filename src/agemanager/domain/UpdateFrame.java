@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import agemanager.database.ExecuteQueryHandlerImpl;
 import agemanager.ui.HomeScreen;
 
 public class UpdateFrame extends SearchButtonInUpdate {
@@ -171,7 +172,7 @@ public class UpdateFrame extends SearchButtonInUpdate {
 
 	}
 
-	static void checkingIfTextFieldsAreClicked(JTextField textField) {
+	public static void checkingIfTextFieldsAreClicked(JTextField textField) {
 
 		textField.addFocusListener(new FocusListener() {
 

@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import agemanager.database.IQueryHandler;
+import agemanager.database.UpdateQueryHandlerImpl;
+
 public class SaveButtonInUpdate extends CancelButtonInUpdate {
 
 	/**
@@ -35,7 +38,7 @@ public class SaveButtonInUpdate extends CancelButtonInUpdate {
 						firstNameTextField.getText(), lastNameTextField.getText(), ageTextField.getText(),
 					SearchButtonInUpdate.aadharNumString);
 				try {
-					handler.updateQueriesHandler(queryString);
+					handler.updateQueriesConnectionHandler(queryString);
 				} catch (SQLException e) {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, e.getMessage());

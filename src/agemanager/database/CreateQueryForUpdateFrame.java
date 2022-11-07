@@ -1,9 +1,12 @@
-package agemanager.domain;
+package agemanager.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
+import agemanager.domain.CancelButtonInUpdate;
+import agemanager.domain.SearchButtonInUpdate;
+import agemanager.domain.UpdateFrame;
+import agemanager.ui.HomeScreen;
 
 public class CreateQueryForUpdateFrame implements ICreateQueryForUpdateFrame {
 
@@ -31,7 +34,7 @@ public class CreateQueryForUpdateFrame implements ICreateQueryForUpdateFrame {
 			}
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+			HomeScreen.showErrorMessage(e.getMessage());
 			e.printStackTrace();
 		}
 		return isAdharNumberCorrect;

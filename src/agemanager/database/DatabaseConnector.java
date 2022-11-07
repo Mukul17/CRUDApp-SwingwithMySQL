@@ -9,6 +9,27 @@ public class DatabaseConnector {
 	private static Statement statement;
 	private static Connection connection;
 
+	
+	public static Statement getStatement() {
+		return statement;
+	}
+
+
+	public static void setStatement(Statement statement) {
+		DatabaseConnector.statement = statement;
+	}
+
+
+	public static Connection getConnection() {
+		return connection;
+	}
+
+
+	public static void setConnection(Connection connection) {
+		DatabaseConnector.connection = connection;
+	}
+
+
 	public static void connectingWithSQLDatabaseUsingJDBC() {
 		try {
 

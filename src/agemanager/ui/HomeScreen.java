@@ -10,8 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-
-import agemanager.domain.UpdateQueryHandlerImpl;
+import agemanager.database.UpdateQueryHandlerImpl;
 import agemanager.domain.ValidationOfFields;
 
 public class HomeScreen extends ValidationOfFields {
@@ -182,7 +181,7 @@ public class HomeScreen extends ValidationOfFields {
 	}
 
 	public static void showErrorMessage(String errorMessage) {
-		JOptionPane.showMessageDialog(null, errorMessage, "MessageDialog", JOptionPane.ERROR_MESSAGE, null);
+		JOptionPane.showMessageDialog(null, errorMessage);
 	}
 
 }

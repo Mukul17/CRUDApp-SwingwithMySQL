@@ -1,4 +1,4 @@
-package agemanager.domain;
+package agemanager.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
