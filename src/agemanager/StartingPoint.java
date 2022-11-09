@@ -1,6 +1,6 @@
 package agemanager;
 
-import agemanager.database.DatabaseConnector;
+import agemanager.database.connector.DatabaseConnector;
 import agemanager.ui.HomeScreen;
 
 public class StartingPoint extends HomeScreen {

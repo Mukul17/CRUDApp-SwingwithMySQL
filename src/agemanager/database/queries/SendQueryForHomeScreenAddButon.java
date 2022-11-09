@@ -1,4 +1,4 @@
-package agemanager.domain;
+package agemanager.database.queries;
 
 import agemanager.ui.HomeScreen;
 

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import agemanager.domain.ReadButtonFrame;
-import agemanager.domain.ValidationOfFields;
+import agemanager.domain.validationoffields.ValidationOfFields;
 
 public class MainScreenReadButton extends MainScreenUpdateButton {
 	

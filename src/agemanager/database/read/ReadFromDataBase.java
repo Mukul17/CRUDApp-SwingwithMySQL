@@ -1,4 +1,4 @@
-package agemanager.database;
+package agemanager.database.read;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -12,6 +12,10 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+
+import agemanager.database.connector.DatabaseConnector;
+import agemanager.database.queries.ExecuteQueryHandlerImpl;
+import agemanager.database.queries.IExecuteQuery;
 
 public class ReadFromDataBase implements IReadDatabase {
 	public JPanel contentPane;

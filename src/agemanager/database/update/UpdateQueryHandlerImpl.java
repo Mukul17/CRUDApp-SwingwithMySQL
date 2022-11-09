@@ -1,8 +1,11 @@
-package agemanager.database;
+package agemanager.database.update;
 
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
+
+import agemanager.database.connector.DatabaseConnector;
+import agemanager.database.queries.IQueryHandler;
 
 public class UpdateQueryHandlerImpl implements IQueryHandler {
 	DatabaseConnector connector = new DatabaseConnector();

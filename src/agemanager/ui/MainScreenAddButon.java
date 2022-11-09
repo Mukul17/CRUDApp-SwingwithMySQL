@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import agemanager.domain.PeopleRepository;
-import agemanager.domain.ValidationOfFields;
+import agemanager.domain.validationoffields.ValidationOfFields;
 
 public class MainScreenAddButon {
 

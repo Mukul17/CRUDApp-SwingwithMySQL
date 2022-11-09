@@ -9,16 +9,13 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import agemanager.database.CreateQueryForUpdateFrame;
+import agemanager.database.queries.CreateQueryForUpdateFrame;
 
 public class SearchButtonInUpdate extends SaveButtonInUpdate {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public static String aadharNumString;
-	protected static JButton backToMainMenu;
+	public static JButton backToMainMenu;
 
 	protected static void searchButton(JButton button) throws SQLException {
 

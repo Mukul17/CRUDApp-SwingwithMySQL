@@ -7,14 +7,15 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import agemanager.database.UpdateQueryHandlerImpl;
+import agemanager.database.update.UpdateButtonInsideEditQuery;
+import agemanager.database.update.UpdateQueryHandlerImpl;
 import agemanager.domain.PeopleRepository;
-import agemanager.domain.ValidationOfFields;
+import agemanager.domain.validationoffields.ValidationOfFields;
 
 public class MainScreenUpdateButton extends MainScreenAddButon {
 	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
 	public static String editFramefirstName, editFrameLastName, editFrameAge, editAadharNumber;
-	static PeopleRepository instance = PeopleRepository.getInstance();
+	static UpdateButtonInsideEditQuery instance = PeopleRepository.getInstance();
 
 	protected static void updateButtonInsideEditInsertsUpdatedValues(JButton Button3) {
 

@@ -1,4 +1,4 @@
-package agemanager.database;
+package agemanager.database.connector;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

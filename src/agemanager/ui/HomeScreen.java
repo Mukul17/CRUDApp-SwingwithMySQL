@@ -10,8 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import agemanager.database.UpdateQueryHandlerImpl;
-import agemanager.domain.ValidationOfFields;
+import agemanager.database.update.UpdateQueryHandlerImpl;
+import agemanager.domain.validationoffields.ValidationOfFields;
 
 public class HomeScreen extends ValidationOfFields {
 

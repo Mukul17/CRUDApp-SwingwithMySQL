@@ -1,4 +1,4 @@
-package agemanager.database;
+package agemanager.database.queries;
 
 public interface ICreateQueryForUpdateFrame {
 

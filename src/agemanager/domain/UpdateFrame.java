@@ -15,7 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import agemanager.database.ExecuteQueryHandlerImpl;
+import agemanager.database.queries.ExecuteQueryHandlerImpl;
+import agemanager.ui.CancelButtonInUpdate;
 import agemanager.ui.HomeScreen;
 
 public class UpdateFrame extends SearchButtonInUpdate {

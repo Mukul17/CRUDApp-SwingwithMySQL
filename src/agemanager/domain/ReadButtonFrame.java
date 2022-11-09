@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import agemanager.database.ReadFromDataBase;
+import agemanager.database.read.ReadFromDataBase;
 
 public class ReadButtonFrame extends JFrame  {
 

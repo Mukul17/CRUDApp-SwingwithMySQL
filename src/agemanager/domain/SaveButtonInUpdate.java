@@ -9,8 +9,9 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import agemanager.database.IQueryHandler;
-import agemanager.database.UpdateQueryHandlerImpl;
+import agemanager.database.queries.IQueryHandler;
+import agemanager.database.update.UpdateQueryHandlerImpl;
+import agemanager.ui.CancelButtonInUpdate;
 
 public class SaveButtonInUpdate extends CancelButtonInUpdate {
 

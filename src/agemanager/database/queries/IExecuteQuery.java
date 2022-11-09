@@ -1,4 +1,4 @@
-package agemanager.database;
+package agemanager.database.queries;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

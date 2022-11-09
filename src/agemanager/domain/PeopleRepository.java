@@ -2,14 +2,11 @@ package agemanager.domain;
 
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
-import agemanager.database.UpdateQueryHandlerImpl;
+import agemanager.database.update.UpdateButtonInsideEditQuery;
+import agemanager.database.update.UpdateQueryHandlerImpl;
 import agemanager.ui.HomeScreen;
-import agemanager.ui.MainScreenUpdateButton;
 
-public class PeopleRepository extends SendQueryForHomeScreenAddButon {
-	String query2;
+public class PeopleRepository extends UpdateButtonInsideEditQuery {
 	static UpdateQueryHandlerImpl handler = new UpdateQueryHandlerImpl();
 	private static PeopleRepository instance = new PeopleRepository();
 
@@ -44,22 +41,6 @@ public class PeopleRepository extends SendQueryForHomeScreenAddButon {
 	public int updateResultOfQuery() throws SQLException {
 		int updatequery = handler.updateQueriesConnectionHandler(query1);
 		return updatequery;
-	}
-
-	public String updateQuery() {
-		try {
-			String query2 = String.format(
-					"UPDATE PEOPLE SET first_name= '%s',last_name= '%s',age ='%s', ADHAR_NUM= '%s' WHERE first_name='%s' ",
-					MainScreenUpdateButton.editFramefirstName, MainScreenUpdateButton.editFrameLastName,
-					MainScreenUpdateButton.editFrameAge, MainScreenUpdateButton.editAadharNumber);
-			return query2;
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			HomeScreen.showErrorMessage(e.getMessage());
-		}
-		return query2;
-
 	}
 
 }

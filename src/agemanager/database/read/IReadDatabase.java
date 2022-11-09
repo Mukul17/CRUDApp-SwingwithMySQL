@@ -1,4 +1,4 @@
-package agemanager.database;
+package agemanager.database.read;
 
 import java.sql.SQLException;
 

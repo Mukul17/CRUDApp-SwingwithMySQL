@@ -1,11 +1,11 @@
-package agemanager.database;
+package agemanager.database.queries;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import agemanager.domain.CancelButtonInUpdate;
 import agemanager.domain.SearchButtonInUpdate;
 import agemanager.domain.UpdateFrame;
+import agemanager.ui.CancelButtonInUpdate;
 import agemanager.ui.HomeScreen;
 
 public class CreateQueryForUpdateFrame implements ICreateQueryForUpdateFrame {
